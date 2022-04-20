@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsorship</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+      
+      [class*="col-"] {
+        float: left;
+        padding: 15px;
+      }
+      
+      .col-1 {width: 8.33%;}
+      .col-2 {width: 16.66%;}
+      .col-3 {width: 25%;}
+      .col-4 {width: 33.33%;}
+      .col-5 {width: 41.66%;}
+      .col-6 {width: 50%;}
+      .col-7 {width: 58.33%;}
+      .col-8 {width: 66.66%;}
+      .col-9 {width: 75%;}
+      .col-10 {width: 83.33%;}
+      .col-11 {width: 91.66%;}
+      .col-12 {width: 100%;}
+      
+      html {
+        font-family: "Lucida Sans", sans-serif;
+      }
+      
+      .header {
+        background-color: #9933cc;
+        color: #ffffff;
+        padding: 15px;
+      }
+      
+      .menu ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+      }
+      
+      .menu li {
+        padding: 8px;
+        margin-bottom: 7px;
+        background-color: #33b5e5;
+        color: #ffffff;
+        
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      }
+      
+      .menu li:hover {
+        background-color: #0099cc;
+      }
+
+      input[type=text], input[type=email],input[type=password] {
+        border: 2px solid red;
+        border-radius: 4px;
+        width: 75%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+      }
+
+      input[type=button], input[type=submit], input[type=reset] {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+
+      table {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      table td,th{
+        border: 1px solid #ddd;
+        padding: 8px;
+        height: 70px;
+        font-size: 10px;
+      }
+      
+      table tr:nth-child(even){background-color: #f2f2f2; font-size: 15px; }
+      table tr:hover {background-color: #ddd; font-size: 15px;}
+      table tr{font-size: 20px; height: 20px;}
+      table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #94ec97;
+        color: white;
+      }
+
+      a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}
+      </style>
+</head>
+<body background-color: #4CAF50;> 
+
+  <div class="header" >
+    <h1>Sponsorship</h1>
+    <div align='left'>
+    {%if user.is_staff and user.is_authenticated%}
+    <h1>Staff</h1>
+    {%elif user.is_sponsor and user.is_authenticated%}
+    <h1>Sponsor</h1>
+    {%elif not user.is_sponsor and not user.is_staff and user.is_authenticated%}
+    <h1>Student</h1>
+    {%endif%}
+    </div>
+    
+    {%if user.is_authenticated%}
+    <li>Hello {{user.student.first_Name}}</li>
+    {%endif%}
+</div>
+
+<div class="row">
+    <div class="col-3 menu">
+        <ul>
+            <a href="{%url 'index'%}"><li>Home</li></a>
+            {%if user.is_authenticated and not user.is_staff and not user.is_sponsor%} 
+            
+              <a href="{%url 'studentBioInfo'%}"><li>Profile</li></a>            
+              
+
+            {%endif%}
+
+            {%if user.is_authenticated and not user.is_staff and  user.is_sponsor%}             
+            
+              <a href="{%url 'applicantList'%}"><li>View applications</li></a>
+              
+
+            {%endif%}
+
+            {%if user.is_authenticated and  user.is_staff%} 
+            <a href="{%url 'applicationList'%}"><li>List of Applicants</li></a>
+            
+
+            {%endif%}
+
+            {%if user.is_authenticated %} 
+          
+            <a href="{%url 'logout'%}"><li>Logout</li></a>
+
+            {%endif%}
+
+            {%if not user.is_authenticated%}
+
+            <a href="{%url 'login'%}"><li>Login</li></a>
+            <a href="{%url 'register'%}"><li>Create Student Account</li></a>
+            <a href="{%url 'sponsorInfo'%}"><li>Become a sponsor</li></a>
+            
+            {%endif%}
+         </ul>
+    </div>
+
+    <div class="col-9">
+    {%block content%}
+    
+      {%endblock%}
+    </div>
+  </div>
+</body>
+</html>

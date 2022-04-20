@@ -1,0 +1,46 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div>
+    <table >
+        
+        <tr>
+          <th>Name</th>
+          <th>School</th>
+          <th>Year of Completion</th>
+          <th>Sponsor Programe</th>
+          <th>Sponsor </th>
+          <th>Sponsor Phone</th>
+          <th>Sponsor Email</th>
+          <th> Status</th>
+          <th>sponsorshipType </th>
+          
+          
+        </tr>
+        {%for qs in qs%}
+        {%if qs.status%}
+          <tr align="center" style="background-color:#8cd18e">
+        {%else%}
+        <tr align="center" >
+        {%endif%}
+            <td> {{qs.studentId.first_Name}} {{qs.studentId.last_Name}}</td>
+            <td> {{qs.studentId.school_name}}</td>
+            <td> {{qs.studentId.year_of_completion}} </td>
+            <td> {{qs.sponId.sponsorshipPrograme}} </td>
+            <td> {{qs.sponId.sponsorName}} </td>
+            <td> {{qs.sponId.phone}} </td>
+            <td> {{qs.sponId.email}} </td>
+            {%if not qs.status%}
+            <td col> Pending Approval </td>
+            {%else%}
+            <td col> {{qs.status}} </td>
+            {%endif%}
+            <td> {{qs.sponId.sponsorshipType}} </td>
+            </tr>
+          
+            {%endfor%}
+  
+        </table>
+        
+
+        {%endblock%}

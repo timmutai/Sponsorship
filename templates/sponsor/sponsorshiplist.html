@@ -1,0 +1,45 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+{%for message in messages%}
+        
+{{message}}
+        
+{%endfor%}
+<div>
+    <table >
+        
+        <tr>
+          <th>Id</th>
+          <th>Sponsorship Programe</th>
+          <th> Sponsor Name</th>
+          <th>Email</th>
+          <th>Phone No</th>
+          <th>Country </th>
+          <th>Sponsorship Type</th>
+          <th>Details</th>
+          <th>Action</th>
+          
+        </tr>
+        {%for list in slist%}
+          <tr align="center">
+            <td> {{list.user_id}} </td>
+            <td> {{list.sponsorshipPrograme}}</td>
+            <td> {{list.sponsorName}}</td>
+            <td> {{list.email}} </td>
+            <td> 0{{list.phone}} </td>
+            <td> {{list.country}} </td>
+            <td> {{list.sponsorshipType}} </td>
+            <td> {{list.details}} </td>
+           
+            <td><a href="{% url 'apply' list.id %}"><button class='btn btn-sm btn-outline-info' type="button">Apply </button></a>  </td>
+            </tr>
+  
+            {%endfor%}
+  
+        </table>
+        </div>
+        
+
+        {%endblock%}
