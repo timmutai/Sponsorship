@@ -3,19 +3,7 @@ from.forms import  staffForm
 from django.contrib.auth.decorators import login_required
 from student.models import student
 # Create your views here.
-def staffregister (request):
-    if request.method=='POST':
-        form=staffForm(request.POST)
-        if form.is_valid():
-            
-            form.save()
-            
-            return staffForm('login')
-        print("form.errors: ", form.errors)
-        return render(request,'staff/staffregister.html', {"form": form})
-    else:
-        form=staffForm()
-        return render(request,'staff/staffregister.html',{'form': form })
+
 @login_required
 
 def applicationList(request):

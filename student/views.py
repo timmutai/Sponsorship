@@ -6,9 +6,6 @@ from student.models import applications,student
 from django.contrib import messages
 from django.core.mail import send_mail
 
-# Captures sponsor details
-
-
 
 # captures student bio information and updates student information
     
@@ -79,10 +76,10 @@ def recomendation(request):
          
          return redirect('index')
       print("form.errors: ", form.errors)
-      return render(request,'student2.html', {"form": form})
+      return render(request,'school.html', {"form": form})
    else:
       form= RecomendationForm()
-      return render(request,'student2.html',{'form':form})
+      return render(request,'student.html',{'form':form})
 
 
 
@@ -98,6 +95,6 @@ def profileupdate(request,id):
          form.save()
       return redirect(studentBioInfo)
 
-   return render(request,'sponsor/profileupdate.html',{'form':form})
+   return render(request,'profileupdate.html',{'form':form})
 
   
