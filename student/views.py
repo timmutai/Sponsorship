@@ -15,7 +15,7 @@ def studentBioInfo(request):
    if student.objects.filter(user_id=request.user.id).exists():
       
       prof= student.objects.filter(user=request.user.id).first()
-      return render (request,'sponsor/profile.html',{'prof':prof})
+      return render (request,'student/profile.html',{'prof':prof})
 
       
    else:
