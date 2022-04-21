@@ -1,5 +1,7 @@
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
+
+from sponsor.models import sponsor
 from .forms import SponsorInfoForm, SponsorAccountCreationForm
 from django.contrib.auth.decorators import login_required
 from account.models import  account
@@ -25,7 +27,13 @@ def SponsorAccountCreation (request):
 
 
 def sponsorInfo (request):
-   if request.method=='POST':
+
+    if sponsor.objects.filter(user_id=request.user.id).exists():
+      
+      prof= sponsor.objects.filter(user=request.user.id).first()
+      return render (request,'sponsor/profile.html',{'prof':prof})
+
+    elif request.method=='POST':
       form=SponsorInfoForm(request.POST)
       if form.is_valid():
          form.instance.user = request.user 
@@ -34,7 +42,7 @@ def sponsorInfo (request):
          return redirect('login')
         
       return render(request,'sponsor/sponsoraccount.html', {"form": form})
-   else:
+    else:
       form=SponsorInfoForm()
       return render(request,'sponsor/sponsoraccount.html',{'form': form })
 

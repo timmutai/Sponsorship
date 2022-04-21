@@ -1,0 +1,34 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+<h1>My Profile</h1>
+<table >
+        
+    <tr>
+        <th>Field</th>
+        <th>Value</th>                   
+    </tr>        
+    <tr >
+            <td align="center">Name</td>
+            <td align="left"> {{prof.sponsorName}} </td>                                  
+    </tr>
+    <tr >
+        <td align="center">Address</td>
+        <td align="left"> {{prof.email}} </td>                              
+    </tr>
+    <tr >
+        <td align="center">Phone No</td>
+        <td align="left"> {{prof.phone}} </td>                              
+    </tr>
+    <tr >
+        <td align="center">Email</td>
+        <td align="left">{{prof.country}}  </td>                              
+    </tr>
+   
+    
+    
+</table>
+        
+
+{%endblock%}
