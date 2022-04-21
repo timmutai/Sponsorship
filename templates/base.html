@@ -155,10 +155,11 @@ a:active {
 
             {%endif%}
 
-            {%if user.is_authenticated and not user.is_staff and  user.is_sponsor%}             
-            
-              <a href="{%url 'applicantList'%}"><li>View applications</li></a>
-              
+            {%if user.is_authenticated and not user.is_staff and  user.is_sponsor%}    
+
+              <a href="{%url 'sponsorInfo'%}"><li>Profile</li></a> 
+              <a href="{%url 'applicationList'%}"><li>View applications</li></a>
+               
 
             {%endif%}
 
@@ -178,7 +179,7 @@ a:active {
 
             <a href="{%url 'login'%}"><li>Login</li></a>
             <a href="{%url 'register'%}"><li>Create Student Account</li></a>
-            <a href="{%url 'sponsorInfo'%}"><li>Become a sponsor</li></a>
+            <a href="{%url 'SponsorAccountCreation'%}"><li>Become a sponsor</li></a>
             
             {%endif%}
          </ul>

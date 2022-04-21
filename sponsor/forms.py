@@ -5,12 +5,12 @@ from .models import sponsor
 from django.contrib.auth.forms import UserCreationForm
 
 
-# class SponsorAccountForm(UserCreationForm):
-#     class Meta:
-#         model=account
-#         fields=['email','is_sponsor']
+class SponsorAccountCreationForm(UserCreationForm):
+    class Meta:
+        model=account
+        fields=['email']
         
-class SponsorAccountForm(ModelForm): 
+class SponsorInfoForm(ModelForm): 
     class Meta:
         model=sponsor
         exclude=['user',]

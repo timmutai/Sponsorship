@@ -8,7 +8,7 @@ from django.db.models.deletion import CASCADE
 
 class sponsor(models.Model):
     
-    user=models.ForeignKey(account, on_delete=models.CASCADE)
+    user=models.ForeignKey(account, on_delete=models.CASCADE, unique=True)
     sponsorName=models.CharField(max_length=100)
     email=models.EmailField()
     phone=models.IntegerField()

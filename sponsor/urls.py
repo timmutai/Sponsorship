@@ -1,9 +1,9 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [       
+urlpatterns = [  
        
- 
        path('sponsorInfo',views.sponsorInfo,name='sponsorInfo'),
+       path('SponsorAccountCreation',views.SponsorAccountCreation,name='SponsorAccountCreation'),
       
 ]
