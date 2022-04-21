@@ -23,8 +23,8 @@ def register (request):
             
             return redirect('login')
         print("form.errors: ", form.errors)
-        return render(request,'registration.html', {"form": form})
+        return render(request,'account/registration.html', {"form": form})
     else:
         form=UserRegistration()
-        return render(request,'registration.html',{'form': form })
+        return render(request,'account/registration.html',{'form': form })
 

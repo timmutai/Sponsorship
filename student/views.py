@@ -31,10 +31,10 @@ def studentBioInfo(request):
             
                return redirect('StudentSchoolInfo')
                
-            return render(request,'student.html', {"form": form})
+            return render(request,'student/student.html', {"form": form})
          else:
             form= studentBioForm()
-            return render(request,'student.html',{'form':form})
+            return render(request,'student/student.html',{'form':form})
 
       else:
          
@@ -56,10 +56,10 @@ def StudentSchoolInfo(request):
                     
          return redirect('recomendation')
       print("form.errors: ", form.errors)
-      return render(request,'student.html', {"form": form})
+      return render(request,'student/student.html', {"form": form})
    else:
       form= studentSchoolForm()
-      return render(request,'student.html',{'form':form})
+      return render(request,'student/student.html',{'form':form})
 
 # captures reasons for application and recommandation of the student 
 @login_required
@@ -76,10 +76,10 @@ def recomendation(request):
          
          return redirect('index')
       print("form.errors: ", form.errors)
-      return render(request,'school.html', {"form": form})
+      return render(request,'student/school.html', {"form": form})
    else:
       form= RecomendationForm()
-      return render(request,'student.html',{'form':form})
+      return render(request,'student/student.html',{'form':form})
 
 
 
@@ -95,6 +95,6 @@ def profileupdate(request,id):
          form.save()
       return redirect(studentBioInfo)
 
-   return render(request,'profileupdate.html',{'form':form})
+   return render(request,'student/profileupdate.html',{'form':form})
 
   
