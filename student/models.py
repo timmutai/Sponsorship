@@ -9,7 +9,7 @@ from django.db.models.deletion import CASCADE
 class student(models.Model):
     # public_id = models.CharField(max_length=50, default=uuid.uuid4, editable=False)
     
-    user=models.OneToOneField(account, on_delete=models.CASCADE, primary_key=True)
+    user=models.OneToOneField(account, on_delete=models.CASCADE)
     first_Name=models.CharField(max_length=200)
     last_Name=models.CharField(max_length=200)
     address=models.CharField(max_length=100)

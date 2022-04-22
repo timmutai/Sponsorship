@@ -1,0 +1,68 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div>
+    <table 
+        
+        <tr>
+          <th> Name</th>
+          <th>Phone No</th>
+          <th>Address</th>
+          <th>Email</th>
+          
+        </tr>
+        
+          <tr align="center">
+            <td> {{studentdetail.first_Name}} {{studentdetail.last_Name}}</td>
+            <td> {{studentdetail.phone_No}} </td>
+            <td> {{studentdetail.address}} </td>
+            <td> {{studentdetail.email}} </td>
+            </tr>
+  
+        
+        <tr>
+          <th>school Name</th>
+          <th>School address</th>
+          <th>Academic level</th>
+          <th>Expected year of completion</th>
+          
+          
+        </tr>
+       
+          <tr align="center">
+            <td> {{studentdetail.school_name}}</td>
+            <td> {{studentdetail.school_address}} </td>
+            <td> {{studentdetail.academic_level}} </td>
+            <td> {{studentdetail.year_of_completion}} </td>
+            </tr>
+  
+        
+
+        
+        <tr>
+          <th>National ID</th>
+          <th>Birth Certificate</th>
+          <th>Recomendation Letter</th>
+          <th>Reasons for Application</th>
+          
+          
+        </tr>
+        
+          <tr align="center">
+            <td> {{studentdetail.national_id}}</td>
+            <td> {{studentdetail.birth_certificate}} </td>
+            <td> {{studentdetail.recomendation}} </td>
+            <td> {{studentdetail.reason_for_application}} </td>
+            </tr>
+  
+        
+
+        <tr align="center">
+               
+            
+        </tr>
+  
+        </table>
+       
+
+        {%endblock%}

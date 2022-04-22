@@ -7,24 +7,22 @@
         <tr>
           <th> Name</th>
           <th>Phone No</th>
-          <th>School</th>
-          <th>Academic Level</th>
-          <th>Year of Completion</th>
-          <th>Reason For applying</th>
+          <th>Address</th>
+          <th>Email</th>
+          <th>Staff Approval Status</th>
           <th>Sponsor</th>
-          <th>Status</th>
+          <th>Action</th>
           
         </tr>
         {%for student in students%}
           <tr align="center">
             <td> {{student.first_Name}} {{student.last_Name}}</td>
             <td> 0{{student.phone_No}} </td>
-            <td> {{student.school_name}} </td>
-            <td> {{student.academic_level}} </td>
-            <td> {{student.year_of_completion}} </td>
-            <td> {{student.reason_for_application}} </td>
+            <td> {{student.address}} </td>
+            <td> {{student.email}} </td>
             <td> {{student.sponsor}} </td>
             <td> {{student.sponsor}} </td>
+            <td> <a href="{% url 'StudentDetail' student.id %}"><button class='btn btn-sm btn-outline-info' type="button">View More </button></a>  </td>
             </tr>
   
             {%endfor%}
