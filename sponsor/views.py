@@ -1,3 +1,4 @@
+from email import message
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from sponsor.models import sponsor
@@ -58,17 +59,19 @@ def SponsorApproval(request,pk):
     # updates the sponsor details on applications model
     ApplicationApproval=applications.objects.filter(studentId=pk).first()
     ApplicationApproval.sponsorId=Sponsor
-    ApplicationApproval.sponsorshipStatus='Sponsored by :', Sponsor.sponsorName
+    ApplicationApproval.sponsorshipStatus='Sponsored by :' +Sponsor.sponsorName
     ApplicationApproval.save()
-
-
 
     # #sends email to student if application is approved by a staff
     students=student.objects.filter(id=pk).first() # selects the student bu id
     mail=students.email
+    emessa='Your application for sponsorship has been approved by a sponsor,Below are the sponsor details :'
+    
+    
     send_mail(
       'Spornsorship', # subject
-      'Your application for sponsorship has been approved by a sponsor,Below are the sponsor details',  # message
+      # message
+      f'{emessa},Name :{Sponsor.sponsorName},Email :{Sponsor.email},Phone :{Sponsor.phone},Country :{Sponsor.country}',
       '', # sender
       [mail], #receiver
       fail_silently=False,
