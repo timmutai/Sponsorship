@@ -2,6 +2,7 @@ from account.models import account
 from django.db import models
 from sponsor.models import sponsor
 from django.db.models.deletion import CASCADE
+from django.db.models.signals import post_save
 
 # Create your models here.
 
@@ -31,12 +32,18 @@ class student(models.Model):
 
 class applications(models.Model):
     
-    studentId=models.ForeignKey(student,on_delete=models.CASCADE)
-    sponId=models.ForeignKey(sponsor,on_delete=models.CASCADE)
-    sponsorUserId=models.IntegerField()
-    applicationDate=models.DateField(auto_now_add=True)
+    studentId=models.OneToOneField(student,on_delete=models.CASCADE)
+    sponsorId=models.ForeignKey(sponsor,on_delete=models.CASCADE, null=True)
+    spplicationDate=models.DateField(auto_now_add=True)
     staffApproval=models.TextField(max_length=20, default='Pending review')
-    sponsorshipStatus=models.TextField(max_length=20, default='')
+    sponsorshipStatus=models.TextField(max_length=20, default='Awaiting Sponsorship')
 
     def __str__(self):
         return str(self.studentId)
+
+def CreateApplication (sender, instance, created, **kwargs):
+    if created:
+        
+        applications.objects.create(studentId=instance)
+        
+post_save.connect(CreateApplication, sender=student)

@@ -1,8 +1,7 @@
 from email import message
 from django.shortcuts import redirect, render
-from.forms import  staffForm
 from django.contrib.auth.decorators import login_required
-from student.models import student
+from student.models import student,applications
 from django.http import HttpResponse
 # Create your views here.
 
@@ -14,7 +13,6 @@ def applicationList(request):
         students=student.objects.all()   
         return render(request,'staff/studentlist.html',{'students':students})
         
-        studentdetail=student.objects.filter(id=pk)
 
     else: 
         message='No details to dispaly'
@@ -27,8 +25,8 @@ def StudentDetail(request,pk):
         
 
 def approve(request,pk):
-    a=student.objects.filter(id=pk).first()
-    a.status='Approved'
-    a.save()
+    ApplicationApproval=applications.objects.filter(studentId=pk).first()
+    ApplicationApproval.staffApproval='Approved'
+    ApplicationApproval.save()
 
     return redirect(applicationList)

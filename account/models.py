@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
+
+
 # Create your models here.
 class accountManager(BaseUserManager):
     
@@ -43,6 +45,7 @@ class account(AbstractBaseUser,PermissionsMixin):
     is_sponsor=models.BooleanField(default=False)
     is_superuser=models.BooleanField(default=False)
     is_staff=models.BooleanField(default=False)
+    is_student=models.BooleanField(default=False)
     
 
     USERNAME_FIELD='email'
@@ -59,6 +62,7 @@ class account(AbstractBaseUser,PermissionsMixin):
     def has_module_perm(self, app_label):
             return True
         
+
    
 
 

@@ -18,7 +18,7 @@ def register (request):
     if request.method=='POST':
         form=UserRegistration(request.POST)
         if form.is_valid():
-            account.is_active=False
+            form.instance.is_student=True
             form.save()
             
             return redirect('login')
