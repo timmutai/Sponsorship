@@ -65,13 +65,13 @@ def SponsorApproval(request,pk):
     # #sends email to student if application is approved by a staff
     students=student.objects.filter(id=pk).first() # selects the student bu id
     mail=students.email
-    emessa='Your application for sponsorship has been approved by a sponsor,Below are the sponsor details :'
+    emessage='Your application for sponsorship has been approved by a sponsor,Below are the sponsor details :'
     
     
     send_mail(
       'Spornsorship', # subject
       # message
-      f'{emessa},Name :{Sponsor.sponsorName},Email :{Sponsor.email},Phone :{Sponsor.phone},Country :{Sponsor.country}',
+      f'{emessage},Name :{Sponsor.sponsorName},Email :{Sponsor.email},Phone :{Sponsor.phone},Country :{Sponsor.country}',
       '', # sender
       [mail], #receiver
       fail_silently=False,
