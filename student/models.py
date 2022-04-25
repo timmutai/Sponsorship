@@ -6,10 +6,9 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 
-
+# model to store student details
 class student(models.Model):
-    # public_id = models.CharField(max_length=50, default=uuid.uuid4, editable=False)
-    
+       
     user=models.OneToOneField(account, on_delete=models.CASCADE)
     first_Name=models.CharField(max_length=200)
     last_Name=models.CharField(max_length=200)
@@ -30,6 +29,8 @@ class student(models.Model):
     def __str__(self):
         return str(self.user)
 
+
+# Model to store student application status
 class applications(models.Model):
     
     studentId=models.OneToOneField(student,on_delete=models.CASCADE)
