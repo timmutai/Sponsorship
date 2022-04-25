@@ -1,10 +1,11 @@
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
-
 from sponsor.models import sponsor
 from .forms import SponsorInfoForm, SponsorAccountCreationForm
 from django.contrib.auth.decorators import login_required
 from account.models import  account
+from student.models import applications, student
+from staff.views import applicationList
 from django.contrib import messages
 from django.core.mail import send_mail
 
@@ -48,3 +49,29 @@ def sponsorInfo (request):
 
 
 
+# Enables Sponsor to choose students to sponsor
+
+def SponsorApproval(request,pk):
+    # retrieves the logged in sponsor details
+    Sponsor=sponsor.objects.filter(user=request.user).first()
+
+    # updates the sponsor details on applications model
+    ApplicationApproval=applications.objects.filter(studentId=pk).first()
+    ApplicationApproval.sponsorId=Sponsor
+    ApplicationApproval.sponsorshipStatus='Sponsored by :', Sponsor.sponsorName
+    ApplicationApproval.save()
+
+
+
+    # #sends email to student if application is approved by a staff
+    students=student.objects.filter(id=pk).first() # selects the student bu id
+    mail=students.email
+    send_mail(
+      'Spornsorship', # subject
+      'Your application for sponsorship has been approved by a sponsor,Below are the sponsor details',  # message
+      '', # sender
+      [mail], #receiver
+      fail_silently=False,
+   )
+    
+    return redirect(applicationList)

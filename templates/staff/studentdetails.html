@@ -5,7 +5,7 @@
     <table 
         
         <tr>
-          <th> Name</th>
+          <th> Student Name</th>
           <th>Phone No</th>
           <th>Address</th>
           <th>Email</th>
@@ -21,7 +21,7 @@
   
         
         <tr>
-          <th>school Name</th>
+          <th>School Name</th>
           <th>School address</th>
           <th>Academic level</th>
           <th>Expected year of completion</th>
@@ -49,18 +49,21 @@
         </tr>
         
           <tr align="center">
-            <td> {{studentdetail.national_id}}</td>
-            <td> {{studentdetail.birth_certificate}} </td>
-            <td> {{studentdetail.recomendation}} </td>
+            <td><a  target="blank" href="">{{studentdetail.national_id}}</a> </td>
+            <td> <a href="">{{studentdetail.birth_certificate}}</a></td>
+            <td> <a href="">{{studentdetail.recomendation}}</a> </td>
             <td> {{studentdetail.reason_for_application}} </td>
             </tr>
   
         
 
         <tr align="center">
-          <td> <a href="{% url 'approve' studentdetail.id %}"><button class='btn btn-sm btn-outline-info' type="button">Approve</button></a>  </td>  
-          
-            
+          {%if user.is_authenticated and  user.is_staff%} 
+            <td> <a href="{% url 'StaffApproval' studentdetail.id %}"><button class='btn btn-sm btn-outline-info' type="button">Approve</button></a>  </td>  
+          {%endif%}
+          {%if user.is_authenticated and  user.is_sponsor%} 
+          <td> <a href="{% url 'SponsorApproval' studentdetail.id %}"><button class='btn btn-sm btn-outline-info' type="button">Sponsor</button></a>  </td>  
+          {%endif%}
         </tr>
   
         </table>

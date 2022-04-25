@@ -42,9 +42,13 @@ class applications(models.Model):
     def __str__(self):
         return str(self.studentId)
 
+
+# Signal to create an entry to application model once a student object is created
 def CreateApplication (sender, instance, created, **kwargs):
     if created:
         
         applications.objects.create(studentId=instance)
         
 post_save.connect(CreateApplication, sender=student)
+
+
