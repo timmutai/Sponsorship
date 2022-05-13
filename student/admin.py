@@ -1,6 +1,6 @@
 from django.contrib import admin
-from student.models import applications, student
+from student.models import applications
 
 # Register your models here.
-admin.site.register(student)
+
 admin.site.register(applications)

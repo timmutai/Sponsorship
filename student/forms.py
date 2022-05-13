@@ -1,28 +1,16 @@
 from django.forms import ModelForm
 from account.models import account
-from .models import student
+from student.models import applications
 from django.contrib.auth.forms import UserCreationForm
 
-
-
-class studentBioForm(ModelForm):
-       
-    class Meta:
-        model=student
-
-        fields=('first_Name','last_Name','address','phone_No','email','birth_certificate','national_id')
-
+# form 
 class studentSchoolForm(ModelForm):
     class Meta:
-        model=student
-        fields=('school_name','school_address','academic_level','year_of_completion')
+        model=applications
+        exclude=['IdNo','sponsorId','applicationDate','staffApproval','sponsorshipStatus']
 
 class RecomendationForm(ModelForm):
     class Meta:
-        model=student
-        fields=('reason_for_application','recomendation')
+        model=applications
+        fields=('reason_for_application','recomendation','birth_certificate','national_id')
         
-class ProfileUpdateForm(ModelForm):
-    class Meta:
-        model=student
-        exclude=['user','sponsor']

@@ -3,7 +3,7 @@
 {%block content%}
 <div>
     <table 
-        
+    {%for studentdetail in studentdetails %}
         <tr>
           <th> Student Name</th>
           <th>Phone No</th>
@@ -13,7 +13,7 @@
         </tr>
         
           <tr align="center">
-            <td> {{studentdetail.first_Name}} {{studentdetail.last_Name}}</td>
+            <td> {{studentdetail.firstName}} {{studentdetail.lastName}}</td>
             <td> {{studentdetail.phone_No}} </td>
             <td> {{studentdetail.address}} </td>
             <td> {{studentdetail.email}} </td>
@@ -56,16 +56,16 @@
             </tr>
   
         
-
-        <tr align="center">
-          {%if user.is_authenticated and  user.is_staff%} 
-            <td> <a href="{% url 'StaffApproval' studentdetail.id %}"><button class='btn btn-sm btn-outline-info' type="button">Approve</button></a>  </td>  
-          {%endif%}
-          {%if user.is_authenticated and  user.is_sponsor%} 
-          <td> <a href="{% url 'SponsorApproval' studentdetail.id %}"><button class='btn btn-sm btn-outline-info' type="button">Sponsor</button></a>  </td>  
-          {%endif%}
-        </tr>
-  
+            <tr align="center">
+              {%if user.is_authenticated and  user.is_staff%} 
+                <td> <a href="{% url 'StaffApproval' studentdetail.id %}"><button class='btn btn-sm btn-outline-info' type="button">Approve</button></a>  </td>  
+              {%endif%}
+              {%if user.is_authenticated and  user.is_sponsor%} 
+              <td> <a href="{% url 'SponsorApproval' studentdetail.id %}"><button class='btn btn-sm btn-outline-info' type="button">Sponsor</button></a>  </td>  
+              {%endif%}
+            </tr>
+       
+            {%endfor%}
         </table>
        
 

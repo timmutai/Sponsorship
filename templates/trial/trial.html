@@ -1,0 +1,20 @@
+
+{% load rest_framework %}
+<html><body>
+    <h1>Profiles</h1>
+    <ul>
+        {% for trial in trials %}
+        <li>{{ trial.sponsorName }}</li>
+        <li>{{ trial.email }}</li>
+        <li>{{ trial.phone }}</li>
+        <li>{{ trial.country }}</li>
+        {% endfor %}
+    </ul>
+
+
+    <form action="{% url 'SponsorList'  %}" method="POST">
+        {% csrf_token %}
+        {% render_form serializer %}
+        <input type="submit" value="Save">
+    </form>
+    </body></html>

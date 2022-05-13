@@ -2,10 +2,11 @@
 
 {%block content%}
 <div>
+  Only students approved by the staff will be listed here
     <table 
         
         <tr>
-          <th> ID</th>
+          <th> Id Number</th>
           <th> Name</th>
           <th>Phone No</th>
           <th>Address</th>
@@ -15,23 +16,21 @@
           <th>Action</th>
           
         </tr>
-        {%for student in students%}
+        {%for student in students %}
           <tr align="center">
-            <td> {{student.id}} </td>
-            <td> {{student.first_Name}} {{student.last_Name}}</td>
+            <td> {{student.idno}} </td>
+            <td> {{student.firstName}} {{student.lastName}}</td>
             <td> 0{{student.phone_No}} </td>
             <td> {{student.address}} </td>
             <td> {{student.email}} </td>
-            <td> {{student.applications.staffApproval}} </td>
-            <td> {{student.applications.sponsorshipStatus}} </td>
-            <td> <a href="{% url 'StudentDetail' student.id %}"><button class='btn btn-sm btn-outline-info' type="button">View More </button></a>  </td>
+            <td> {{student.staffapproval}} </td>
+            <td> {{student.sponsorshipStatus}} </td>
+            <td> <a href="{% url 'ApplicationDetail'  student.id %}"><button class='btn btn-sm btn-outline-info' type="button">View More </button></a>  </td>
             </tr>
   
             {%endfor%}
   
         </table>
-        {%for message in messages%}
-        {{message}}
-        {%endfor%}
+        
 
         {%endblock%}

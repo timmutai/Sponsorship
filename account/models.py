@@ -1,4 +1,7 @@
 from django.db import models
+
+# Create your models here.
+from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
@@ -13,7 +16,7 @@ class accountManager(BaseUserManager):
         user=self.model(
             email=self.normalize_email(email),
         )
- 
+        user.is_superuser=True
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -34,9 +37,12 @@ class accountManager(BaseUserManager):
         return user
 
 class account(AbstractBaseUser,PermissionsMixin):
-    
+    idno=models.IntegerField(default=False,primary_key=True)
     firstName=models.CharField(max_length=50)
     lastName=models.CharField(max_length=50)
+    phone_No=models.IntegerField(default =False)
+    address=models.CharField(max_length=100)
+    country=models.CharField(max_length=50)
     email=models.EmailField(unique=True)
     password=models.CharField(max_length=100)
     date_joined=models.DateField(auto_now_add=True)
@@ -49,7 +55,7 @@ class account(AbstractBaseUser,PermissionsMixin):
     
 
     USERNAME_FIELD='email'
-    REQUIRED_FIELDS=['password']
+    REQUIRED_FIELDS=['password',]
 
     objects=accountManager()
 
