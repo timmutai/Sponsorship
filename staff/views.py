@@ -29,13 +29,12 @@ def applicationList(request):
 @login_required
 def ApplicationDetail(request,pk):
     if request.method=='GET' and request.user.is_staff:
-        id=pk
-        studentdetails=account.objects.raw("SELECT * FROM account_account INNER JOIN student_applications on account_account.idno =student_applications.idno_id WHERE  id=%s",[id])        
+        
+        studentdetails=account.objects.raw("SELECT * FROM account_account INNER JOIN student_applications on account_account.idno =student_applications.idno_id WHERE  id=%s",[pk])        
         return render(request,'staff/studentdetails.html',{'studentdetails':studentdetails})
     elif request.method=='GET' and request.user.is_sponsor:
         
-        id=pk
-        studentdetails=account.objects.raw("SELECT * FROM account_account INNER JOIN student_applications on account_account.idno =student_applications.idno_id WHERE  id=%s",[id])        
+        studentdetails=account.objects.raw("SELECT * FROM account_account INNER JOIN student_applications on account_account.idno =student_applications.idno_id WHERE  id=%s",[pk])        
         return render(request,'staff/studentdetails.html',{'studentdetails':studentdetails})
         
 # Enables staff to approves applications and send email to student
@@ -46,15 +45,18 @@ def StaffApproval(request,pk):
     ApplicationApproval.save()
 
     # #sends email to student if application is approved by a staff
-    # student=account.objects.filter(id=pk).first()
-    # mail=student.email
-#     send_mail(
-#       'Spornsorship', # subject
-#       'Your application for sponsorship has been approved by a staff, Kindly wait for sponsorship',  # message
-#       '', # sender
-#       [mail], #receiver
-#       fail_silently=False,
-#    )
+    studentmail=account.objects.raw("SELECT * FROM account_account INNER JOIN student_applications on account_account.idno =student_applications.idno_id WHERE  id=%s",[pk]) 
+    
+    for x in studentmail:
+        mail=x.email
+        send_mail(
+        'Spornsorship', # subject
+        'Your application for sponsorship has been approved by a staff, Kindly wait for sponsorship',  # message
+        '', # sender
+        [mail], #receiver
+        fail_silently=False,
+        
+   )
     
     return redirect(applicationList)
 
