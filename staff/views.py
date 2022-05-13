@@ -49,15 +49,18 @@ def StaffApproval(request,pk):
     
     for x in studentmail:
         mail=x.email
-        send_mail(
-        'Spornsorship', # subject
-        'Your application for sponsorship has been approved by a staff, Kindly wait for sponsorship',  # message
-        '', # sender
-        [mail], #receiver
-        fail_silently=False,
-        
-   )
+        try:
+            send_mail(
+                'Spornsorship', # subject
+                'Your application for sponsorship has been approved by a staff, Kindly wait for sponsorship',  # message
+                '', # sender
+                [mail], #receiver
+                fail_silently=False,
+            
+            )
     
-    return redirect(applicationList)
+            return redirect(applicationList)
+        except:
+            return HttpResponse('An error occured, please try again')
 
 

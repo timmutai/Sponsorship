@@ -10,7 +10,7 @@ class StudentRegistrationForm(UserCreationForm):
 
     class Meta:
         model= account
-        fields=['firstName','lastName','idno','phone_No','address','email']
+        fields=['firstName','lastName','idno','phone_No','address','country','email']
 
 class SponsorRegistrationForm(UserCreationForm):
 
@@ -18,4 +18,4 @@ class SponsorRegistrationForm(UserCreationForm):
 
     class Meta:
         model=account
-        fields=['firstName','lastName','idno','phone_No','address','email']
+        fields=['firstName','lastName','idno','phone_No','address','country','email']
