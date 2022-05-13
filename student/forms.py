@@ -5,9 +5,13 @@ from django.contrib.auth.forms import UserCreationForm
 
 # form 
 class studentSchoolForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(studentSchoolForm, self).__init__(*args, **kwargs)
+        self.fields['year_of_completion'].label = 'Year of completion (yyyy-mm-dd)'
     class Meta:
         model=applications
-        exclude=['IdNo','sponsorId','applicationDate','staffApproval','sponsorshipStatus']
+        exclude=['idno','sponsor','applicationDate','staffapproval','sponsorshipStatus']
 
 class RecomendationForm(ModelForm):
     class Meta:

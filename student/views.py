@@ -17,7 +17,7 @@ def StudentSchoolInfo(request):
       form = studentSchoolForm(request.POST,request.FILES)
       if form.is_valid():
                   
-         form.instance.studentId = request.user         
+         form.instance.idno = request.user         
          form.save()
                     
          return redirect('index')
