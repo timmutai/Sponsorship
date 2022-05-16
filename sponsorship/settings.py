@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'staff',
     'sponsor',
     'student',
+    'phonenumber_field',
     
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

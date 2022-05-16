@@ -1,9 +1,7 @@
 from django.db import models
-
-# Create your models here.
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 # Create your models here.
@@ -40,7 +38,7 @@ class account(AbstractBaseUser,PermissionsMixin):
     idno=models.IntegerField(default=False,primary_key=True)
     firstName=models.CharField(max_length=50)
     lastName=models.CharField(max_length=50)
-    phone_No=models.IntegerField(default =False)
+    phone_No=PhoneNumberField()
     address=models.CharField(max_length=100)
     country=models.CharField(max_length=50)
     email=models.EmailField(unique=True)

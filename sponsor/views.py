@@ -38,6 +38,7 @@ def SponsorApproval(request,pk):
       
        )
         return redirect(applicationList)
+        
       except:
         return HttpResponse('An error occured, please try again')
     
