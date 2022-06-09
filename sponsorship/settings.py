@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'student',
     'phonenumber_field',
     
+    
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [

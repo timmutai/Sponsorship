@@ -2,7 +2,9 @@
 
 {%block content%}
 <div>
+  {%if user.is_authenticated and  user.is_sponsor%}
   Only students approved by the staff will be listed here
+  {%endif%}
     <table 
         
         <tr>

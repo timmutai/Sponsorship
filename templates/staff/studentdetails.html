@@ -50,11 +50,12 @@
         
           <tr align="center">
             <td><a  target="blank" href="">{{studentdetail.national_id}}</a> </td>
-            <td> <a href="">{{studentdetail.birth_certificate}}</a></td>
+            <td> <embed src="files/National_id_n1FhjlB.pdf" type="application/pdf" width="10%" height="60px" /></td>
+            
             <td> <a href="">{{studentdetail.recomendation}}</a> </td>
             <td> {{studentdetail.reason_for_application}} </td>
             </tr>
-  
+            
         
             <tr align="center">
               {%if user.is_authenticated and  user.is_staff%} 
@@ -64,9 +65,5 @@
               <td> <a href="{% url 'SponsorApproval' studentdetail.id %}"><button class='btn btn-sm btn-outline-info' type="button">Sponsor</button></a>  </td>  
               {%endif%}
             </tr>
-       
-            {%endfor%}
-        </table>
-       
-
-        {%endblock%}
+            {%endfor%}  
+            {%endblock%}
