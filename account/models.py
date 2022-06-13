@@ -1,3 +1,9 @@
+from email.policy import default
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+
 from django.db import models
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -13,6 +19,7 @@ class accountManager(BaseUserManager):
         
         user=self.model(
             email=self.normalize_email(email),
+            
         )
         user.is_superuser=True
         user.set_password(password)
@@ -66,7 +73,12 @@ class account(AbstractBaseUser,PermissionsMixin):
     def has_module_perm(self, app_label):
             return True
         
+# signal to create a Token for a user when a new user is created
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)   
 
-   
-
-
+    # to create tokens for users who existed before implementation of token authentication
+    for user in account.objects.all():
+        Token.objects.get_or_create(user=user)

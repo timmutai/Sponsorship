@@ -1,14 +1,15 @@
 {%extends 'base.html'%}
 {% load crispy_forms_tags %}
 {%block content%}
+{%load rest_framework%}
 
 
 <div class="content-section">
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" action="{% url 'StudentSchoolInfo' %}" enctype="multipart/form-data" aut>
         {%csrf_token%}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Application Form</legend>
-            {{form|crispy}}
+            {% render_form serializer %}
         </fieldset>
         <div class="form-group">
             <button class="btn btn-outline-info" type="Next">Submit</button>
@@ -18,6 +19,11 @@
     
 </div>
 
+{%for student in students %}
 
+{{student.idno}}
+{{student.school_name}}
+
+{%endfor%}
 
 {%endblock%}

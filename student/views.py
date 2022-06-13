@@ -1,32 +1,40 @@
-from django.contrib.auth import login
-from django.shortcuts import render, redirect
-from .forms import studentSchoolForm, RecomendationForm
-from django.contrib.auth.decorators import login_required
+from account.models import account
+from .serializer import studentSchoolSerializer
 from student.models import applications
-from django.contrib import messages
-from django.core.mail import send_mail
-   
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.models import Token
 
 # captures student school info
-@login_required
-def StudentSchoolInfo(request):
-   
-   
-   if request.method =='POST' and request.user.is_authenticated:
-      
-      form = studentSchoolForm(request.POST,request.FILES)
-      if form.is_valid():
-                  
-         form.instance.idno = request.user         
-         form.save()
-                    
-         return redirect('index')
-      print("form.errors: ", form.errors)
-      return render(request,'student/student.html', {"form": form})
-   else:
-      form= studentSchoolForm()
-      return render(request,'student/student.html',{'form':form})
 
+# Apiview to handle cration of application and to retrieve list of applications
+class  StudentSchoolInfo(APIView):
+   authentication_classes = [ TokenAuthentication ]
+   permission_classes = [IsAuthenticated]
+   
+  
+   def get(self,request, format=None):
+        user=applications.objects.all()
+        serializer=studentSchoolSerializer(user, many=True)
+      #   content={'students': serializer.data}
+        return Response(serializer.data)
+   
+   def post(self, request, format=None):
+      
+      serializer = studentSchoolSerializer(data=request.data)
+      
+      if serializer.is_valid():
+                
+         
+         serializer.save()
+         
+                    
+         return Response(serializer.data)
+      return Response(serializer.errors,)
+     
+  
 
 
 

@@ -21,7 +21,7 @@ class applications(models.Model):
     sponsorshipStatus=models.TextField(max_length=20, default='Awaiting Sponsorship')
 
     def __str__(self):
-        return str(self.studentId)
+        return str(self.idno)
 
 
 
