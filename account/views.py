@@ -6,13 +6,13 @@ from django.http import HttpResponse
 from account.models import  account
 from.forms import StudentRegistrationForm,SponsorRegistrationForm
 from django.contrib.auth.decorators import login_required 
+from rest_framework.authtoken.models import Token
 
-
-
-
+   
 #landing page
 @login_required
 def index(request):
+    
     return render(request,'index.html')
 
 # Student registration function

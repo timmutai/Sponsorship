@@ -1,4 +1,7 @@
-from django.db import models
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from phonenumber_field.modelfields import PhoneNumberField
@@ -7,23 +10,26 @@ from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 class accountManager(BaseUserManager):
     
-    def create_user(self,email,password=None):
+    def create_user(self,idno,email,password=None):
         if not email:
             raise ValueError('Email is a required')    
         
         user=self.model(
             email=self.normalize_email(email),
+            idno=idno,
+            
         )
         user.is_superuser=True
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self,email,password):     
+    def create_superuser(self,email,idno,password):     
                 
         user=self.create_user(
             email=self.normalize_email(email),
             password=password,
+            idno=idno,
             )
 
         user.is_staff=True
@@ -35,7 +41,7 @@ class accountManager(BaseUserManager):
         return user
 
 class account(AbstractBaseUser,PermissionsMixin):
-    idno=models.IntegerField(default=False,primary_key=True)
+    idno=models.IntegerField(primary_key=True)
     firstName=models.CharField(max_length=50)
     lastName=models.CharField(max_length=50)
     phone_No=PhoneNumberField()
@@ -52,8 +58,8 @@ class account(AbstractBaseUser,PermissionsMixin):
     is_student=models.BooleanField(default=False)
     
 
-    USERNAME_FIELD='email'
-    REQUIRED_FIELDS=['password',]
+    USERNAME_FIELD='idno'
+    REQUIRED_FIELDS=['email','password']
 
     objects=accountManager()
 
@@ -66,7 +72,12 @@ class account(AbstractBaseUser,PermissionsMixin):
     def has_module_perm(self, app_label):
             return True
         
+# signal to create a Token for a user when a new user is created
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)   
 
-   
-
-
+    # to create tokens for users who existed before implementation of token authentication
+    for user in account.objects.all():
+        Token.objects.get_or_create(user=user)
